@@ -1,0 +1,89 @@
+#!/bin/bash
+
+# Commands to extract information from:
+# 1. ip a
+# 2. iw dev
+# 3. ip link | awk -F: '$0 !~ "lo|vir|^[^0-9]"{print $2a;getline}'
+# Here we use colon as delimiter -F: then check if the row $0 does not match a certain string using regular expression.
+# 4. ip -br l
+# 5. ip -br l | awk '$1 !~ "lo|vir|wl" {print $1}'
+
+# ===================================================================================
+# [1] First we get the status (UP or DOWN) of each network interface.
+# -----------------------------------------------------------------------------------
+wired_status=$(ip -br l | awk '$1 ~ "en|et" { print $2}')
+wifi_status=$(ip -br l | awk '$1 ~ "wl" { print $2}')
+# ===================================================================================
+
+# ===================================================================================
+# [2] Generate info for the Internet connections.
+# -----------------------------------------------------------------------------------
+show_wifi=false
+show_wired=false
+
+# ------[ Wired Level ]---------------
+wired_off=" "
+# wired_on=""
+wired_on=" "
+wired_on_alt=" "
+# ------[ Wifi Level ]---------------
+wifi_off=" "
+wifi_none=" "
+wifi_low=" "
+wifi_medium=" "
+wifi_high=" "
+# ===================================================================================
+# 2.1: Wifi connection
+# -----------------------------------------------------------------------------------
+# Get the wifi device id automatically
+# WIFI_DEVICE=wlp0s20f3
+WIFI_DEVICE=$(ip -br l | awk '$1 !~ "lo|vir|en|et" {print $1}')
+
+if [ $wifi_status = "UP" ]; then
+	# Separate fields with ':' and look for a line with SSID.
+	# then replace the first ws of the second field (the ssid) with nothing
+	# and print the result.
+	wifi_ssid=$(iw dev ${WIFI_DEVICE} link 2>/dev/null | awk -F: '/SSID/{gsub(/^ /,"",$2); print $2}')
+	# Take the signal strength $rssi calculate quality based on below from OpenWRt
+	# iwinfo source with -40 dBm 100% and -110 0%.
+	rssi=$(iw dev ${WIFI_DEVICE} link 2>/dev/null | grep "signal:" | awk '{print $2}')
+	if [ $rssi -lt -110 ]; then
+		wifi_icon=$wifi_none
+	elif [ $rssi -lt -80 ]; then
+		wifi_icon=$wifi_low
+	elif [ $rssi -lt -50 ]; then
+		wifi_icon=$wifi_medium
+	else
+		wifi_icon=$wifi_high
+	fi
+	# Set flag to display wifi info in the output
+	show_wifi=true
+else
+	wifi_icon=$wifi_off
+fi
+
+# ===================================================================================
+# 2.2: Wired connection.
+# -----------------------------------------------------------------------------------
+if [ $wired_status = "UP" ]; then
+	# wired_icon=wired_on_alt
+	wired_icon=$wired_on
+	# Set flag to display wired info in the output
+	show_wired=true
+else
+	wired_icon=$wired_off
+fi
+
+# ===================================================================================
+# [3]: Print the information on the internet connection status
+# -----------------------------------------------------------------------------------
+if [[ "$show_wifi" = true && "$show_wired" = true ]]; then
+	printf "%s" ${wifi_icon} "${wifi_ssid}" ${wired_icon}
+elif [ "$show_wifi" = true ]; then
+	printf "%s" ${wifi_icon} "${wifi_ssid}"
+elif [ "$show_wired" = true ]; then
+	printf "%s" ${wired_icon}
+else
+	# printf "%s %s" ${wifi_icon} ${wired_icon}
+	printf "%s" ${wifi_icon}
+fi

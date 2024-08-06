@@ -1,0 +1,14 @@
+#!/bin/sh
+
+# Verifica o layout atual do teclado
+layout=$(setxkbmap -query | grep layout | awk '{print $2}')
+variant=$(setxkbmap -query | grep variant | awk '{print $2}')
+current_kb_map="  N/A"
+
+if [ -n "$variant" ]; then
+  current_kb_map=" ${layout}-${variant}"
+elif [ "$layout" = "us" ] && [ -z "$variant" ]; then
+  current_kb_map=" ${layout}"
+fi
+
+echo "${current_kb_map}"

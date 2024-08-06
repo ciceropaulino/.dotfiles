@@ -1,0 +1,35 @@
+#!/bin/bash
+# icons depend on nerdfonts being installed
+bat() {
+	batstat="$(cat /sys/class/power_supply/BAT0/status)"
+	battery="$(cat /sys/class/power_supply/BAT0/capacity)"
+	if [[ $batstat = 'Unknown' ]] || [[ $batstat = 'Charging' ]]; then
+		batstat=" "
+	elif [[ $battery -ge 5 ]] && [[ $battery -le 19 ]]; then
+		batstat=" "
+	elif [[ $battery -ge 20 ]] && [[ $battery -le 39 ]]; then
+		batstat=" "
+	elif [[ $battery -ge 40 ]] && [[ $battery -le 59 ]]; then
+		batstat=" "
+	elif [[ $battery -ge 60 ]] && [[ $battery -le 79 ]]; then
+		batstat=" "
+	elif [[ $battery -ge 80 ]] && [[ $battery -le 100 ]]; then
+		batstat=" "
+	fi
+	# Adjusting capacity that sometimes is reported above 100%
+	if [[ $battery -ge "100" ]]; then
+		cap=100
+		batstat=" "
+	else
+		cap=$battery
+	fi
+
+	if [[ $cap -ge "98" ]]; then
+		# printf "%s %3d%%" $batstat $cap
+		printf "%s %2d%%" $batstat $cap
+	else
+		printf "%s %2d%%" $batstat $cap
+	fi
+}
+
+echo "$(bat)"

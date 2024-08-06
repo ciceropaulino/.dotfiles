@@ -1,0 +1,14 @@
+#!/bin/bash 
+
+#!/baptura o número de pacotes disponíveis para atualização
+updates=$(apt list --upgradable 2> /dev/null | grep -v Listing | wc -l)
+
+# Define o ícone (você pode mudar para o ícone desejado)
+icon=" "
+
+# Imprime o ícone e o número de pacotes disponíveis para atualização
+echo "$icon$updates"
+
+
+
+                    

@@ -1,0 +1,30 @@
+#!/bin/bash
+# icons depend on nerdfonts being installed
+clock=$(date '+%I')
+
+
+# # Obter as resoluções dos monitores
+# resolutions=$(xrandr | awk '/\*/ {print $1}')
+# # Encontrar a menor largura entre as resoluções
+# min_width=$(echo "$resolutions" | awk -F'x' '{print $1}' | sort -n | head -n1)
+# # Definir a porcentagem da largura que você deseja usar para adicionar espaços
+# # percentage=0.42 ---> middle of 2560
+# percentage=0.42
+# # Calcular o número de espaços com base na largura e na porcentagem
+num_spaces=91
+
+# Imprimir a data/hora seguida dos espaços em branco
+date_time=$(date +" %a %0e %b - %H:%M")
+spaces=$(printf "%*s" "$num_spaces" "")
+# Imprimir os espaços em branco antes da data/hora
+echo "${date_time}${spaces}"
+
+
+# echo "$icon $(date "+%H:%M")  $(date "+%a, %d %b")"
+
+# From Polybar
+# echo " $(date "+%d-%b %H:%M")"
+# echo " $(date "+%d-%b (%a) %H:%M")"
+# echo "$(date "+%d-%b (%a) %H:%M")"
+# echo "$(date "+%a%e %b - %H:%M")"
+# echo " $(date "+%a%e %b - %H:%M")"

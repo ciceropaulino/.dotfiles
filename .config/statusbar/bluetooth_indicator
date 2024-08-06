@@ -1,0 +1,12 @@
+#!/bin/sh
+
+if [ $(bluetoothctl show | grep "Powered: yes" | wc -c) -eq 0 ]; then
+  echo ""
+else
+  n_device_on=$(bluetoothctl devices | cut -f2 -d' ' | while read uuid; do bluetoothctl info $uuid; done | grep -e "Connected: yes" | wc -c)
+  if [ $n_device_on -eq 0 ]; then
+    echo ""
+  else
+    echo ""
+  fi
+fi
