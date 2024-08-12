@@ -11,3 +11,5 @@ zsh ./.fehbg &
 
 #start slstatus
 slstatus &
+
+eval "$(dbus-launch --sh-syntax --exit-with-session)"

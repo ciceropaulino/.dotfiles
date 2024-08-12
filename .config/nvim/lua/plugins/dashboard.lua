@@ -28,4 +28,7 @@ return {
       },
     },
   },
+  config = function()
+    vim.api.nvim_set_hl(0, "DashboardHeader", { fg = "#FF1E23" }) -- Cor do cabeçalho
+  end,
 }
