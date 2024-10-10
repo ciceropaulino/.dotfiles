@@ -1,0 +1,52 @@
+#! /bin/sh
+
+pgrep -x sxhkd >/dev/null || sxhkd &
+
+bspc monitor -d I II III IV V VI VII VIII IX X
+
+bspc config split_ratio 0.52
+bspc config borderless_monocle true
+bspc config gapless_monocle true
+
+# Terminate any existing instances
+pkill -USR1 -x sxhkd
+
+# Set the border width (equivalente a borderpx no dwm)
+bspc config border_width 1
+
+# Gaps entre as janelas (equivalente a gappx)
+bspc config window_gap 10
+
+# Definir os botões de foco e movimentação de janelas (usando Mod4 como o modkey padrão, equivalente ao MODKEY no dwm)
+bspc config pointer_modifier mod4
+bspc config pointer_action1 move
+bspc config pointer_action2 resize_side
+
+# Colocar a barra na parte superior (equivalente a showbar=1 e topbar=1 no dwm)
+bspc config top_padding 32
+
+# Cores da borda (usando cores da config do dwm)
+bspc config normal_border_color "#000000"  # col_gray1
+bspc config focused_border_color "#ff0000" # col_cyan
+
+# Configuração de janelas flutuantes para alguns aplicativos (regras do dwm adaptadas)
+bspc rule -a kitty state=tiled desktop=^1
+bspc rule -a Firefox state=tiled desktop=^6
+bspc rule -a Chromium state=tiled desktop=^6
+bspc rule -a Discord state=tiled desktop=^8
+bspc rule -a Thunar state=tiled desktop=^5
+bspc rule -a Obsidian state=tiled desktop=^7
+
+# Definir layout padrão (equivalente ao tile no dwm)
+bspc config split_ratio 0.55 # mfact 0.55 no dwm
+bspc config automatic_scheme alternate
+
+# Start the status bar (se estiver usando polybar, lemonbar ou outra barra)
+# polybar example &
+
+# Autostart apps (equivalente a autostart no dwm)
+sxhkd &
+polybar &
+setxkdmap -layout us -variant intl &
+picom --experimental-backends &
+zsh ./.fehbg &

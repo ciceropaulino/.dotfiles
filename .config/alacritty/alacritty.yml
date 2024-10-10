@@ -1,0 +1,48 @@
+# Alacritty Configuration
+
+# Font configuration
+font:
+  normal:
+    family: "JetBrainsMono Nerd Font"
+    size: 10.0
+
+# Padding around the terminal window
+window:
+  padding:
+    x: 1
+    y: 1
+  opacity: 0.7
+
+# Background opacity
+
+# Color scheme
+colors:
+  primary:
+    background: '#1C1C1E'
+    foreground: '#E5E5EA'
+
+  cursor:
+    cursor: '#E5E5EA'
+
+  # Normal colors
+  normal:
+    black:   '#1C1C1E'
+    red:     '#A50011'
+    green:   '#00BDB4'
+    yellow:  '#FF4F44'
+    blue:    '#0070F5'
+    magenta: '#F58B00'
+    cyan:    '#5452CC'
+    white:   '#E5E5EA'
+
+  # Bright colors
+  bright:
+    black:   '#2C2C2E'
+    red:     '#BA0C2E'
+    green:   '#6CE0DB'
+    yellow:  '#EE7762'
+    blue:    '#148EFF'
+    magenta: '#FFA914'
+    cyan:    '#6361F2'
+    white:   '#F2F2F2'
+
