@@ -3,7 +3,3 @@ set recolor  true
 set recolor-lightcolor rgba(0,0,0,0)
 set session-manager true
 
-set highlight-color "#FF0000"     # Cor de fundo do highlight (vermelho)
-set highlight-foreground "#FFFF00" # Cor do texto do highlight (amarelo)
-
-
