@@ -4,7 +4,20 @@
 font:
   normal:
     family: "JetBrainsMono Nerd Font"
-    size: 10.0
+  bold:
+    family: "JetBrainsMono Nerd Font"
+    style: "Bold"
+  italic:
+    family: "JetBrainsMono Nerd Font"
+    style: "Italic"
+  bold_italic:
+    family: "JetBrainsMono Nerd Font"
+    style: "Bold Italic"
+  size: 10
+  offset:
+    x: 0
+    y: 0
+  line_spacing: 1.0
 
 # Padding around the terminal window
 window:
@@ -18,7 +31,7 @@ window:
 # Color scheme
 colors:
   primary:
-    background: '#1C1C1E'
+  #    background: '#1C1C1E'
     foreground: '#E5E5EA'
 
   cursor:

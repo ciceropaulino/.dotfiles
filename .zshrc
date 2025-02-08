@@ -1,6 +1,6 @@
 # Set path if required
 export PATH=$GOPATH/bin:/usr/local/go/bin:$PATH
-
+export PATH="$PATH:/opt/nvim-linux64/bin"
 # Aliases
 alias ls='ls --color=auto'
 alias ll='ls -lah --color=auto'
@@ -51,3 +51,8 @@ export NVM_DIR="$HOME/.nvm"
 export QSYS_ROOTDIR="/home/comrade/intelFPGA_lite/23.1std/quartus/sopc_builder/bin"
 
 [ -f "/home/comrade/.ghcup/env" ] && . "/home/comrade/.ghcup/env" # ghcup-env
+export PATH=$HOME/.local/bin:$PATH
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
